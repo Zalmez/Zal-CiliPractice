@@ -1,0 +1,2 @@
+# Zal-CiliPractice
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/18cf6c4ca14f4b66ba1bbced50fd2f90)](https://www.codacy.com/app/boredgamerz1998/Zal-CiliPractice?utm_source=github.com&utm_medium=referral&utm_content=Zalmez/Zal-CiliPractice&utm_campaign=badger)
