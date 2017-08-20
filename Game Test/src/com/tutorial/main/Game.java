@@ -9,10 +9,11 @@ public class Game extends Canvas implements Runnable {
 	
 	/**
 	 * I have no idea what this is.
+	 * Explanation: noen scripts trenger en "id" for å fungere/kommunisere
 	 */
 	private static final long serialVersionUID = 1550691097823471818L;
 	
-	//This has something to do with the Canvas.
+	//This is the variables we will use to set screen size.
 	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 	
 	private Thread thread;
@@ -56,7 +57,9 @@ public class Game extends Canvas implements Runnable {
 		while(running){
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
+			lastTime = now;
 			while(delta >= 1){
+				//update here
 				tick();
 				delta--;
 			}
@@ -100,5 +103,6 @@ public class Game extends Canvas implements Runnable {
 	public static void main(String[] args){
 		new Game();
 	}
+	
 
 }
