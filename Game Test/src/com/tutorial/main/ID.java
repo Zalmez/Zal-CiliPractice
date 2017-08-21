@@ -5,8 +5,11 @@ public enum ID {
 	
 	Player(),
 	Player2(),
-	Boost1(),
+	Boost(),
 	BasicTrail(),
-	Enemy();
+	Enemy(),
+	FastEnemy(),
+	SeekerEnemy(),
+	EnemyBoss();
 
 }

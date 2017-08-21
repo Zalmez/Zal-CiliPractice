@@ -22,22 +22,37 @@ public class Game extends Canvas implements Runnable {
 	private Random r;
 	private Handler handler;
 	private HUD hud;
+	private Spawn spawner;
+	private Menu menu;
+	
+	public enum STATE{
+		Menu,
+		Help,
+		Game;
+	}
+	
+	public STATE gameState = STATE.Menu;
 	
 	
 	public Game(){
 		
-		new Window(WIDTH, HEIGHT, "Demonica", this);
-		hud = new HUD();
-		
 		handler = new Handler();
+		menu = new Menu(this, handler);
 		this.addKeyListener(new KeyInput(handler));
+		this.addMouseListener(menu);
 		
+		new Window(WIDTH, HEIGHT, "Demonica", this);
+		
+		hud = new HUD();
+		spawner = new Spawn(handler, hud);
+		menu = new Menu(this, handler);
 		r = new Random();
 		
-		handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-		//handler.addObject(new Player(WIDTH/2 + 64, HEIGHT / 2 - 32, ID.Player2));
-		//for(int i = 0; i < 8; i++)
-		handler.addObject(new Enemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.Enemy, handler));
+		
+		if(gameState == STATE.Game){
+			handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+			handler.addObject(new Enemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.Enemy, handler));
+		}
 	}
 
 	public synchronized void start(){
@@ -88,7 +103,12 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick(){
 		handler.tick();
-		hud.tick();
+		if(gameState == STATE.Game){
+			hud.tick();
+			spawner.tick();
+		}else if(gameState == STATE.Menu){
+			menu.tick();
+		}
 	}
 	
 	
@@ -105,14 +125,19 @@ public class Game extends Canvas implements Runnable {
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		handler.render(g);
-		hud.render(g);
+		
+		if(gameState == STATE.Game){
+			hud.render(g);
+		}else if(gameState == STATE.Menu || gameState == STATE.Help){
+			menu.render(g);
+		}
 		
 		g.dispose();
 		bs.show();
 		
 	}
 	
-	public static int clamp(int var, int min, int max){
+	public static float clamp(float var, float min, float max){
 		if(var >= max)
 			return var = max;
 		else if(var <= min)

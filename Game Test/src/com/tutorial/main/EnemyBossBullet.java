@@ -7,17 +7,19 @@ package com.tutorial.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
-public class Enemy extends GameObject{
+public class EnemyBossBullet extends GameObject{
 	
 	private Handler handler;
 	
-	public Enemy(int x, int y, ID id, Handler handler){
+	public EnemyBossBullet(int x, int y, ID id, Handler handler){
 		super(x, y, id);
 		
 		this.handler = handler;
+		Random r = new Random();
 		
-		velX = 5;
+		velX = (r.nextInt(5 - -5) + -5);
 		velY = 5;
 	}
 	
@@ -29,8 +31,10 @@ public class Enemy extends GameObject{
 		x += velX;
 		y += velY;
 		
-		if(x <= 0 || x >= Game.HEIGHT - 64) velX *= -1;
-		if(y <= 0 || y >= Game.WIDTH - 16) velY *= -1;
+		//if(x <= 0 || x >= Game.HEIGHT - 64) velX *= -1;
+		//if(y <= 0 || y >= Game.WIDTH - 16) velY *= -1;
+		
+		if(y >= Game.HEIGHT) handler.removeObject(this);
 		
 		handler.addObject(new BasicTrail((int)x, (int)y, ID.BasicTrail, Color.red, 16, 16, 0.06f, handler));
 		
