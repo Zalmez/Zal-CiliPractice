@@ -2,6 +2,7 @@ package com.tutorial.main;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -18,6 +19,7 @@ public class Window extends Canvas {
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setMaximumSize(new Dimension(width, height));
 		frame.setMinimumSize(new Dimension(width, height));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Window.class.getResource(("/textures/somethinghehexd.png"))));
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
