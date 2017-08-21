@@ -4,34 +4,40 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
 	
 	/**
-	 * I have no idea what this is.
-	 * Explanation: noen scripts trenger en "id" for å fungere/kommunisere
+	 * Some scripts needs an ID to communicate / work.
 	 */
 	private static final long serialVersionUID = 1550691097823471818L;
 	
-	//This is the variables we will use to set screen size.
+	//This is the variables we will use to set the size of the screen.
 	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 	
 	private Thread thread;
 	private boolean running = false;
 	
+	private Random r;
 	private Handler handler;
+	private HUD hud;
 	
 	
 	public Game(){
-		//HANDLER HAS TO BE CREATED FIRST!
+		
+		new Window(WIDTH, HEIGHT, "Demonica", this);
+		hud = new HUD();
+		
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
 		
-		new Window(WIDTH, HEIGHT, "Ree's Realm", this);
+		r = new Random();
 		
-		
-		handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));
-		handler.addObject(new Player(WIDTH/2+64, HEIGHT/2-32, ID.Player2));
+		handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+		//handler.addObject(new Player(WIDTH/2 + 64, HEIGHT / 2 - 32, ID.Player2));
+		//for(int i = 0; i < 8; i++)
+		handler.addObject(new Enemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.Enemy, handler));
 	}
 
 	public synchronized void start(){
@@ -51,6 +57,7 @@ public class Game extends Canvas implements Runnable {
 	
 	// This is the Game Loop
 	public void run(){
+		this.requestFocus();	//This code focuses the game (You don't have to click the game to move)
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -61,14 +68,14 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
-			while(delta >= 1){
-				//update here
+			while(delta >= 1){ 
 				tick();
 				delta--;
 			}
 			if(running)
 				render();
-			frames++;
+			frames++;		//Added frame limiter 'cus fuk 1k frames Kappa
+			if(frames >= 120) frames = 120;
 			
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
@@ -81,6 +88,7 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick(){
 		handler.tick();
+		hud.tick();
 	}
 	
 	
@@ -97,15 +105,25 @@ public class Game extends Canvas implements Runnable {
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		handler.render(g);
+		hud.render(g);
 		
 		g.dispose();
 		bs.show();
+		
+	}
+	
+	public static int clamp(int var, int min, int max){
+		if(var >= max)
+			return var = max;
+		else if(var <= min)
+			return var = min;
+		else
+			return var;
 	}
 	
 	
 	public static void main(String[] args){
 		new Game();
 	}
-	
 
 }
