@@ -19,7 +19,7 @@ public class BasicTrail extends GameObject {
 	//life = 0.01
 	
 
-	public BasicTrail(int x, int y, ID id, Color color, int width, int height, float life, Handler handler) {
+	public BasicTrail(float x, float y, ID id, Color color, int width, int height, float life, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		this.color = color;
@@ -40,7 +40,7 @@ public class BasicTrail extends GameObject {
 		g2d.setComposite(makeTransparent(alpha));
 		
 		g.setColor(color);
-		g.fillRect(x, y, width, height);
+		g.fillRect((int)x, (int)y, width, height);
 		
 		g2d.setComposite(makeTransparent(1));
 		
