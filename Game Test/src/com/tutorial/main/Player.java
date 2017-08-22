@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Player extends GameObject {
 	
-	Random r = new Random();
+	Random rand = new Random();
 	Handler handler;
 	
 	

@@ -29,7 +29,7 @@ public class Enemy extends GameObject{
 		x += velX;
 		y += velY;
 		
-		if(x <= 0 || x >= Game.HEIGHT - 64) velX *= -1;
+		if(x <= 0 || x >= Game.HEIGHT - 15) velX *= -1;
 		if(y <= 0 || y >= Game.WIDTH - 16) velY *= -1;
 		
 		handler.addObject(new BasicTrail(x, y, ID.BasicTrail, Color.red, 16, 16, 0.06f, handler));

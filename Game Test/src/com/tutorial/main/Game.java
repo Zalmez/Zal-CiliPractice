@@ -19,7 +19,7 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private boolean running = false;
 	
-	private Random r;
+	private Random rand;
 	private Handler handler;
 	private HUD hud;
 	
@@ -32,12 +32,12 @@ public class Game extends Canvas implements Runnable {
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
 		
-		r = new Random();
+		rand = new Random();
 		
 		handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
 		//handler.addObject(new Player(WIDTH/2 + 64, HEIGHT / 2 - 32, ID.Player2));
 		//for(int i = 0; i < 8; i++)
-		handler.addObject(new Enemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.Enemy, handler));
+		handler.addObject(new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
 	}
 
 	public synchronized void start(){
@@ -112,13 +112,13 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 	
-	public static int clamp(int var, int min, int max){
-		if(var >= max)
-			return var = max;
-		else if(var <= min)
-			return var = min;
+	public static int clamp(int val, int min, int max){
+		if(val >= max)
+			return val = max;
+		else if(val <= min)
+			return val = min;
 		else
-			return var;
+			return val;
 	}
 	
 	
