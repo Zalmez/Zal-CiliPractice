@@ -1,7 +1,3 @@
-/*NOTE: Fienden kolliderer ikke ordentlig med veggene. Idk what's wrong FeelsBadMan
- * 
- */
-
 package com.tutorial.main;
 
 import java.awt.Color;
@@ -33,16 +29,13 @@ public class SeekerEnemy extends GameObject{
 		x += velX;
 		y += velY;
 		
-		float diffX = x - player.getX() - 8;
-		float diffY = y - player.getY() - 8;
-		float distance = (float) Math.sqrt((x-player.getX()*(x-player.getX())) + (y-player.getY())* (y-player.getY())); //MATH REEEE
+		float diffX = x - player.getX() + 8;
+		float diffY = y - player.getY() + 8;
+		float distance = (float) Math.sqrt((x-player.getX())*(x-player.getX()) + ((y-player.getY())*(y-player.getY())));
 		
-		velX = (float) ((-1.0/distance) * diffX);
-		velY = (float) ((-1.0/distance) * diffY);
+		velX = (float) ((-2.0/distance) * diffX);
+		velY = (float) ((-2.0/distance) * diffY);
 		
-		
-		//if(x <= 0 || x >= Game.HEIGHT - 64) velX *= -1;
-		//if(y <= 0 || y >= Game.WIDTH - 16) velY *= -1;
 		
 		handler.addObject(new BasicTrail((int)x, (int)y, ID.BasicTrail, Color.GREEN, 16, 16, 0.06f, handler));
 		

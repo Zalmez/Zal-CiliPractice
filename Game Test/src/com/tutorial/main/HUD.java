@@ -3,16 +3,14 @@ package com.tutorial.main;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import com.tutorial.main.Game.STATE;
 
 public class HUD {
 	
 	
 	public static int HEALTH = 100;
 	private int greenValue = 255;
-	private STATE gameState = STATE.Menu;
 	
-	private int score = 0;
+	public int score = 0;
 	private int level = 1;
 	
 	public void tick(){		
@@ -33,8 +31,6 @@ public class HUD {
 		
 		g.drawString("Score: " + score, 15, 64);
 		g.drawString("Level: " + level, 15, 80);
-		
-		
 	}
 	
 	

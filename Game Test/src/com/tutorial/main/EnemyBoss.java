@@ -1,7 +1,3 @@
-/*NOTE: Fienden kolliderer ikke ordentlig med veggene. Idk what's wrong FeelsBadMan
- * 
- */
-
 package com.tutorial.main;
 
 import java.awt.Color;
@@ -16,6 +12,7 @@ public class EnemyBoss extends GameObject{
 	
 	private int timer = 80;
 	private int timer2 = 50;
+	private int timer3 = 1600;
 	
 	public EnemyBoss(int x, int y, ID id, Handler handler){
 		super(x, y, id);
@@ -52,10 +49,13 @@ public class EnemyBoss extends GameObject{
 			
 			int spawn = r.nextInt(10);
 			if(spawn == 0) handler.addObject(new EnemyBossBullet((int)x, (int)y, ID.Enemy, handler));
+			timer3--;
+		}if(timer3 < 0){
+			handler.clearEnemies();
 		}
 		
-		if(x <= 0 || x >= Game.HEIGHT - 64) velX *= -1;
-		//if(y <= 0 || y >= Game.WIDTH - 16) velY *= -1;
+		if(x <= 0 || x >= Game.WIDTH - 34) velX *= -1;
+		//if(y <= 0 || y >= Game.HEIGHT - 60) velY *= -1;
 		
 		handler.addObject(new BasicTrail((int)x, (int)y, ID.BasicTrail, Color.WHITE, 64, 64, 0.06f, handler));
 		

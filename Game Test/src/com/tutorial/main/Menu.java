@@ -26,14 +26,14 @@ public class Menu extends MouseAdapter {
 		int my = e.getY();
 		
 		//Play Button
-		if(mouseOver(mx, my, 210, 180, 200, 64)){
+		if(game.gameState == STATE.Menu && mouseOver(mx, my, 210, 180, 200, 64)){
 			game.gameState = STATE.Game;
 			handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
-			handler.addObject(new Enemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.Enemy, handler));
+			handler.addObject(new Enemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.Enemy, handler));		
 		}
 		
 		//Help Button
-		if(mouseOver(mx, my, 210, 260, 200, 64)){
+		if(game.gameState == STATE.Menu && mouseOver(mx, my, 210, 260, 200, 64)){
 			game.gameState = STATE.Help;
 		}
 		
@@ -44,9 +44,15 @@ public class Menu extends MouseAdapter {
 				return;
 			}
 		}
+		if(game.gameState == STATE.Menu){
+			if(mouseOver(mx, my, 210, 350, 200, 64)){
+				System.exit(1);
+			}
+		}
 		
-		//Quit Button
-		if(mouseOver(mx, my, 210, 350, 200, 64)){
+		//PAUSE BUTTONS
+		//Quit Button (Pause menu needs it's own quit button)
+		if(game.gameState == STATE.Pause && mouseOver(mx, my, 210, 350, 200, 64)){
 			System.exit(1);
 		}
 	}
@@ -129,6 +135,29 @@ public class Menu extends MouseAdapter {
 			g.setColor(Color.white);
 			g.drawRect(210, 340, 200, 64);
 			g.drawString("Back", 280, 380);
+			
+		}else if(game.gameState == STATE.Pause){
+			Font fnt = new Font("arial", 1, 50);
+			Font fnt2 = new Font("arial", 1, 30);
+			
+			g.setFont(fnt);
+			g.setColor(Color.WHITE);
+			g.drawString("Pause", 240, 70);
+			
+			g.setFont(fnt2);
+			g.setColor(Color.white);
+			g.drawRect(210, 180, 200, 64);
+			g.drawString("Continue", 245, 220);
+			
+			g.setFont(fnt2);
+			g.setColor(Color.white);
+			g.drawRect(210, 260, 200, 64);
+			g.drawString("Help", 280, 300);
+			
+			g.setFont(fnt2);
+			g.setColor(Color.white);
+			g.drawRect(210, 340, 200, 64);
+			g.drawString("Quit", 280, 380);
 		}
 	}
 

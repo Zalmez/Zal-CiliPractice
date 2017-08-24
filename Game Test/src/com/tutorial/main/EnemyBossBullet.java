@@ -31,8 +31,8 @@ public class EnemyBossBullet extends GameObject{
 		x += velX;
 		y += velY;
 		
-		//if(x <= 0 || x >= Game.HEIGHT - 64) velX *= -1;
-		//if(y <= 0 || y >= Game.WIDTH - 16) velY *= -1;
+		//if(x <= 0 || x >= Game.WIDTH - 36) velX *= -1;
+		//if(y <= 0 || y >= Game.HEIGHT - 60) velY *= -1;
 		
 		if(y >= Game.HEIGHT) handler.removeObject(this);
 		

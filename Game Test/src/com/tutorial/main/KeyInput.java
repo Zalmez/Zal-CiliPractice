@@ -2,14 +2,15 @@ package com.tutorial.main;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
+import com.tutorial.main.Game;
 import com.tutorial.main.Game.STATE;
 
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
-	private Game game;
 	private boolean[] keyDown = new boolean[4];
+	
+	private Game.STATE gameState;
 	
 	
 	public KeyInput(Handler handler){
@@ -50,7 +51,7 @@ public class KeyInput extends KeyAdapter{
 			}
 		}
 		
-		if(key == KeyEvent.VK_ESCAPE) System.exit(1);
+		if(key == KeyEvent.VK_ESCAPE) gameState = STATE.Pause;
 	}
 	
 	public void keyReleased(KeyEvent e){
@@ -76,10 +77,10 @@ public class KeyInput extends KeyAdapter{
 			if(tempObject.getId() == ID.Player2){
 				//Key Events for Player2 when key is released
 				
-				if(key == KeyEvent.VK_UP) tempObject.setVelY(0);
-				if(key == KeyEvent.VK_DOWN) tempObject.setVelY(0);
-				if(key == KeyEvent.VK_LEFT) tempObject.setVelX(0);
-				if(key == KeyEvent.VK_RIGHT) tempObject.setVelX(0);
+				if(key == KeyEvent.VK_UP) keyDown[0] = false; //tempObject.setVelY(0);
+				if(key == KeyEvent.VK_DOWN) keyDown[1] = false; //tempObject.setVelY(0);
+				if(key == KeyEvent.VK_LEFT) keyDown[2] = false; //tempObject.setVelX(0);
+				if(key == KeyEvent.VK_RIGHT) keyDown[3] = false; //tempObject.setVelX(0);
 			}
 		}
 	}

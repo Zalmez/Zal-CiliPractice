@@ -9,11 +9,11 @@ import java.util.Random;
 public class Game extends Canvas implements Runnable {
 	
 	/**
-	 * Some scripts needs an ID to communicate / work.
+	 * Some scripts require an ID to communicate / work.
 	 */
 	private static final long serialVersionUID = 1550691097823471818L;
 	
-	//This is the variables we will use to set the size of the screen.
+	//These are the variables we will use to set the size of the screen.
 	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 	
 	private Thread thread;
@@ -28,7 +28,9 @@ public class Game extends Canvas implements Runnable {
 	public enum STATE{
 		Menu,
 		Help,
-		Game;
+		Game,
+		Pause,
+		Death;
 	}
 	
 	public STATE gameState = STATE.Menu;
@@ -50,8 +52,8 @@ public class Game extends Canvas implements Runnable {
 		
 		
 		if(gameState == STATE.Game){
-			handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-			handler.addObject(new Enemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.Enemy, handler));
+			//handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+			//handler.addObject(new SeekerEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SeekerEnemy, handler));
 		}
 	}
 
